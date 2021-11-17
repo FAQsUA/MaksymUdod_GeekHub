@@ -1,3 +1,5 @@
+# WITHOUT LISTs
+
 # проверка натуральности числа
 def isInt(n):
     return int(n) == float(n)
@@ -11,7 +13,7 @@ while True:
         print('Enter natural number')
         num = float(input('Enter number --> '))
         continue
-    # проверка числа на натуральность
+    # проверка числа на int/float
     elif isInt(num) == False:
         print('Enter natural number')
         num = float(input('Enter number --> '))
