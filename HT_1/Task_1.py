@@ -1,6 +1,6 @@
 # Version 1
 
-nums = input('Enter numbers --> ') # enter numners
+nums = input('Enter the numbers through "," --> ') # enter numners
 
 list_nums = nums.split(',') #create list without symbol ','
 tuple_nums = tuple(list_nums) # create tuple

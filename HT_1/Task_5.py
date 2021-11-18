@@ -1,4 +1,4 @@
-dec_nums = input('Enter Dec Number --> ')
+dec_nums = input('Enter Dec numbers through "," --> ')
 # create tuple from enter dec numbers
 dec_list = tuple(dec_nums.split(','))
 hex_list = ()
