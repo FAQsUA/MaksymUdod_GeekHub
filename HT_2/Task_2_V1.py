@@ -16,4 +16,4 @@ for i in range(0, len(tuple_list)):
     # add new tuple to new list
     change_tuple_list.append(tuple(fake_tuple))
 
-print('List --> ', change_tuple_list)
+print('List  --> ', change_tuple_list)
