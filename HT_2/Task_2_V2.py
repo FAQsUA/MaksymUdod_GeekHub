@@ -1,7 +1,7 @@
 '''Hardcore'''
 
 print("\nСhange the last element of the tuple that is in the list")
-print('___________________________________________________\n\n')
+print('____________________________________________________\n\n')
 
 num_elements_on_list = int(input('Enter number of Tuples in list -->'))
 
