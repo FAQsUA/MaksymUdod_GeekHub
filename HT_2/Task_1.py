@@ -10,6 +10,7 @@ for i in range(num):
     i += 1
     continue
 # check for empty string
+
 if not concat_string:
     print('Empty string')
 else:
