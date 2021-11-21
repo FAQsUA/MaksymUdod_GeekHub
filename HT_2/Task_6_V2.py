@@ -1,4 +1,12 @@
-'''HARDCORE'''
+'''6. Написати скрипт, який об'єднає три словника в самий перший. Оновлюється тільки перший словник. Дані можна "захардкодити".
+        Sample Dictionary :
+        dict_1 = {1:10, 2:20}
+        dict_2 = {3:30, 4:40}
+        dict_3 = {5:50, 6:60}
+        Expected Result : dict_1 = {1: 10, 2: 20, 3: 30, 4: 40, 5: 50, 6: 60}'''
+
+# Hardcore
+
 def create_dict(_dict):  
         num_of_element = int(input('Enter number elements for DICT --> '))
         for i in range(num_of_element):
