@@ -12,7 +12,9 @@ for i in range(num_of_dict):
         key_value = list(element_dict.split(':'))
         # add elements to new dict
         dict_in.update({key_value[0]:key_value[1]})
+        
     # add new dict to main dict
+    print('Dict ' + str(n+1) + ' --> ', dict_in)
     dict_final.update(dict_in)
 
 print(dict_final)
