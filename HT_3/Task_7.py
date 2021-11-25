@@ -19,9 +19,9 @@ num_2 = 0
 operator_2 = ''
 
 while True:
-    number_1 = str(input('Enter number 1 --> ')).replace('.','')
+    number_1 = str(input('Enter number 1 --> '))
     
-    if number_1.isdigit():
+    if number_1.replace('.','').isdigit():
     
         num_1 = float(number_1)
         
@@ -32,10 +32,13 @@ while True:
                 operator_2 = str(operator_1)
 
                 while True:
-                    number_2 = str(input('Enter number 2 --> ')).replace('.','')
+                    number_2 = str(input('Enter number 2 --> '))
 
-                    if number_2.isdigit():
+                    if number_2.replace('.','').isdigit():
                         num_2 = float(number_2)
+
+                        calc(num_1, num_2, operator_2)
+
                         break
                     elif number_2 == 'exit':
                         print('>>>>>EXIT<<<<<')
@@ -51,7 +54,7 @@ while True:
             else:
                 print('WRONG is not operand >=( ')
                 continue
-            
+
         break
 
     elif number_1 == 'exit':
@@ -60,5 +63,3 @@ while True:
     elif not number_1.isdigit():
         print('WRONG is not digit >=( ')
         continue
-
-calc(num_1, num_2, operator_2)
