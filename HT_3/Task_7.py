@@ -22,7 +22,7 @@ while True:
     number_1 = str(input('Enter number 1 --> ')).replace('.','')
     
     if number_1.isdigit():
-        
+    
         num_1 = float(number_1)
         
         while True:
@@ -45,9 +45,13 @@ while True:
                         continue
                 break
 
+            elif operator_1 == 'exit':
+                print('>>>>>EXIT<<<<<')
+                break
             else:
                 print('WRONG is not operand >=( ')
                 continue
+            
         break
 
     elif number_1 == 'exit':
