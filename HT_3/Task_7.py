@@ -10,8 +10,13 @@ def calc(number_one,number_two,operand):
 
     elif operand =='*':
         return print('Result = ', number_one * number_two)
+
     elif operand == '/':
-        return print('Result = ', number_one / number_two)
+
+        if (number_one == 0 and number_two == 0):
+            print('WRONG!!! division by zero')
+        else:
+            return print('Result = ', number_one / number_two)
 
 
 num_1 = 0
