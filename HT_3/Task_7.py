@@ -1,4 +1,4 @@
-''' 7. Ну і традиційно -> калькулятор :) повинна бути 1 ф-цiя яка б приймала 3 аргументи - один з яких операцiя, яку зробити! '''
+# 7. Ну і традиційно -> калькулятор :) повинна бути 1 ф-цiя яка б приймала 3 аргументи - один з яких операцiя, яку зробити!
 
 def calc(number_one,number_two,operand):
 
@@ -13,7 +13,7 @@ def calc(number_one,number_two,operand):
 
     elif operand == '/':
 
-        if (number_one == 0 and number_two == 0):
+        if number_two == 0:
             print('WRONG!!! division by zero')
         else:
             return print('Result = ', number_one / number_two)
@@ -68,3 +68,4 @@ while True:
     elif not number_1.isdigit():
         print('WRONG is not digit >=( ')
         continue
+    break
