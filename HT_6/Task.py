@@ -20,7 +20,6 @@
 import time
 
 color_list = ['Red','Yellow','Green']
-color_list_2 = {1:'Red',2:'Green'}
 i = 0
 
 try:
@@ -30,20 +29,24 @@ try:
             if color == 'Red':
                 while i < 4:
                     i += 1 
-                    print(color + '    ' + color_list_2[2])
+                    print(color + '    ' + color_list[2])
                     time.sleep(1)
-
-            elif color == 'Yellow':
-                while i < 2:
+                while i < 6:
                     i += 1 
-                    print(color + '    ' + color_list_2[2])
+                    print(color_list[1] + '    ' + color_list[2])
                     time.sleep(1)
 
-            else:
+            elif color == 'Green':
                 while i < 4:
                     i += 1 
-                    print(color + '    ' + color_list_2[1])
+                    print(color + '    ' + color_list[0])
                     time.sleep(1)
+                while i < 6:
+                    i += 1 
+                    print(color_list[1] + '    ' + color_list[0])
+                    time.sleep(1)
+            else:
+                continue
 
             i = 0
         
