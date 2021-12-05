@@ -29,7 +29,7 @@ def castom_range(start=0, stop = object(), step=1):
             while start < stop:
                 range_list.append(start)
                 start += step
-            print([element for element in range_list])
+            return [element for element in range_list]
 
     elif step < 0:
         
@@ -43,12 +43,14 @@ def castom_range(start=0, stop = object(), step=1):
             while start > stop:
                 range_list.append(start)
                 start += step
-            return print([element for element in range_list])
+            return [element for element in range_list]
     else:
         try: 
             raise Range_Error()
         except Range_Error as obj:
-            return print(obj.status[0])
+            return obj.status[0]
 
-castom_range(-10,100,10)
+
+for i in castom_range(-10,100,10):
+    print(i,end=' ')
 
