@@ -15,7 +15,7 @@ def castom_range(start=0, stop = object(), step=1):
         try:
             raise Range_Error()
         except Range_Error as obj:
-            return print(obj.status[3])
+            return obj.status[3]
 
     elif step > 0:
         
@@ -23,7 +23,7 @@ def castom_range(start=0, stop = object(), step=1):
             try:
                 raise Range_Error()
             except Range_Error as obj:
-                return print(obj.status[1])
+                return obj.status[1]
 
         else:
             while start < stop:
@@ -37,7 +37,7 @@ def castom_range(start=0, stop = object(), step=1):
             try:
                 raise Range_Error
             except Range_Error as obj:
-                return print(obj.status[2])
+                return obj.status[2]
  
         else:
             while start > stop:
@@ -51,6 +51,6 @@ def castom_range(start=0, stop = object(), step=1):
             return obj.status[0]
 
 
-for i in castom_range(-10,100,10):
+for i in castom_range(1,10,1):
     print(i,end=' ')
 
