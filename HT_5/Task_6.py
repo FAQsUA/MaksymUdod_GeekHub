@@ -9,7 +9,6 @@ class Range_Error(Exception):
 
 def castom_range(*args):
 
-    range_list = []
     arg = [item for item in args]
     
     if len(args) == 2:
@@ -34,9 +33,8 @@ def castom_range(*args):
 
         else:
             while arg[0] < arg[1]:
-                range_list.append(arg[0])
+                yield arg[0]
                 arg[0] += arg[2]
-            return [element for element in range_list]
 
     elif arg[2] < 0:
         
@@ -48,9 +46,8 @@ def castom_range(*args):
  
         else:
             while arg[0] > arg[1]:
-                range_list.append(arg[0])
+                yield arg[0]
                 arg[0] += arg[2]
-            return [element for element in range_list]
     else:
         try: 
             raise Range_Error()
@@ -58,5 +55,5 @@ def castom_range(*args):
             return obj.status[0]
 
 
-for i in castom_range(10):
+for i in castom_range(10,19,2):
     print(i,end=' ')
