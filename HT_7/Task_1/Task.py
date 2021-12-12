@@ -19,11 +19,13 @@
       - далі - фантазія і креатив :) '''
 
 import json
-from pathlib import Path
+import os
  
+path = os.path.dirname(os.path.realpath(__file__)) + '/'
+
 def validation():
 
-    with open(Path("Task_1","users.data"), 'r', encoding='utf-8') as users_file:
+    with open(path + "users.data", 'r', encoding='utf-8') as users_file:
         users = json.loads(users_file.read())
 
         while True:
@@ -60,7 +62,7 @@ def continue_or_exit():
                 continue
 
 def view_balance(user):
-    with open(Path("Task_1", user +"_balance.data"), 'r', encoding='utf-8') as user_balance:
+    with open(path + user + "_balance.data", 'r', encoding='utf-8') as user_balance:
         print(f'Баланс {user} --> {user_balance.read()}')
 
         return continue_or_exit()
@@ -75,7 +77,7 @@ def deposit(user):
                 print('Депозит не може бути відємним =)')
                 continue
             else:
-                with open(Path("Task_1", user +"_balance.data"), 'r+', encoding='utf-8') as user_balance:
+                with open(path + user + "_balance.data", 'r+', encoding='utf-8') as user_balance:
                     old_balance = user_balance.read()
                     new_balance = int(old_balance) + int(deposit)
 
@@ -85,7 +87,7 @@ def deposit(user):
                     user_balance.seek(0)
 
                     print(f'Баланс: {user_balance.read()}')
-                    with open(Path("Task_1", user + "_transactions.data"), 'a', encoding='utf-8') as user_transactions:
+                    with open(path + user + "_transactions.data", 'a', encoding='utf-8') as user_transactions:
                         user_transactions.write(json.dumps(f"Депозит {deposit} , Баланс: {new_balance}", ensure_ascii=False)) 
                         user_transactions.write("\n")
 
@@ -104,7 +106,7 @@ def withdraw(user):
             if withdraw < 0:
                 withdraw *= -1
 
-            with open(Path("Task_1", user +"_balance.data"), 'r+', encoding='utf-8') as user_balance:
+            with open(path + user + "_balance.data", 'r+', encoding='utf-8') as user_balance:
                 old_balance = user_balance.read()
 
                 if withdraw <= int(old_balance):
@@ -116,7 +118,7 @@ def withdraw(user):
                     user_balance.seek(0)
 
                     print(f'Баланс: {user_balance.read()}')
-                    with open(Path("Task_1", user + "_transactions.data"), 'a', encoding='utf-8') as user_transactions:
+                    with open(path + user + "_transactions.data", 'a', encoding='utf-8') as user_transactions:
                         user_transactions.write(json.dumps(f"Зняття {withdraw} , Баланс: {new_balance}", ensure_ascii=False))
                         user_transactions.write("\n")
                         
@@ -132,7 +134,7 @@ def withdraw(user):
 
 def transactions(user):
     try:
-        with open(Path("Task_1", user + "_transactions.data"), 'r' , encoding='utf-8') as user_transactions:
+        with open(path + user + "_transactions.data", 'r' , encoding='utf-8') as user_transactions:
             print(f'Історія транзакцій {user} : \n{user_transactions.read()}')
     except FileNotFoundError:
         print('>>> Історія відсутня <<<')

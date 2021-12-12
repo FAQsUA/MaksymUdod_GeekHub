@@ -8,14 +8,15 @@
    █ █ █ ░ ░ ░ ░ ░ █ █ █ ░ ░ ░ ░ ░ █ █ █    - правильно
                      ⏫ центр
    █ █ █ ░ ░ ░ ░ ░ ░ █ █ █ ░ ░ ░ ░ █ █ █    - неправильно '''
-
-from pathlib import Path
+import os
 import math
+
+path = os.path.dirname(os.path.realpath(__file__)) + '/'
 
 def func(file, chars):
    list_blocks = []
 
-   with open(Path("Task_2", file), 'r', encoding='utf-8') as fake_file:
+   with open(path +  file, 'r', encoding='utf-8') as fake_file:
       file_len = str(fake_file.read()).replace('\n','')
    
    if len(file_len) <= chars:
@@ -23,7 +24,7 @@ def func(file, chars):
       return True
 
    elif len(file_len)/2 < chars:
-      with open(Path("Task_2", file), 'r', encoding='utf-8') as fake_file:
+      with open(path +  file, 'r', encoding='utf-8') as fake_file:
          fake_file.seek(0,0)
          file_content = str(fake_file.read()).replace('\n','')
 
@@ -36,7 +37,7 @@ def func(file, chars):
          print(list_blocks)
          return False
    else:
-      with open(Path("Task_2", file), 'r', encoding='utf-8') as fake_file:
+      with open(path +  file, 'r', encoding='utf-8') as fake_file:
          fake_file.seek(0,0)
          file_content = str(fake_file.read()).replace('\n','')
 
