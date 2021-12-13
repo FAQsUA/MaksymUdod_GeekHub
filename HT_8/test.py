@@ -12,4 +12,4 @@ def get_money(money):
     return res
  
  
-print(get_money(110))
+print(get_money(160))
