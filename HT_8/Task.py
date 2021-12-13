@@ -132,7 +132,8 @@ def withdraw(user):
                     with open(path + user + "_transactions.data", 'a', encoding='utf-8') as user_transactions:
                         user_transactions.write(json.dumps(f"Зняття {withdraw} , Баланс: {new_balance}", ensure_ascii=False))
                         user_transactions.write("\n")
-                    change_nominals(withdraw) 
+
+                    pisets_zadolbalo_rabotai_lol_kak_ya_golovu_lomal(withdraw) 
                 else:
                     print('Не достатньо когтів на балансі !')
                     continue
@@ -201,28 +202,25 @@ def change_nominal(nominal):
             print('Не вірна операція!')
             continue
 
-def change_nominals(amount):
+def pisets_zadolbalo_rabotai_lol_kak_ya_golovu_lomal(amount):
     dict_nominal = {}
+    summa = 0
     with open(path + "nominal.data", 'r' , encoding='utf-8') as money_nominal:
         dict_nominal = json.loads(money_nominal.read())
-                    #json.dump(dict_nominal, money_nominal)
 
-    nominals = ["1000","500","200","100","50","20","10"]
     print(dict_nominal)
 
-    for key in range(len(nominals)):
-        if int(nominals[key]) <= amount and dict_nominal[nominals[key]] > 0:
-            while amount % int(nominals[key]) == 0 and amount !=0:
-                dict_nominal[nominals[key]] -= 1
-                amount -= int(nominals[key])
-            while amount % 20 == 10 and amount !=0:
-                dict_nominal["50"] -= 1
-                amount -= 50
+    for key, value in sorted(dict_nominal.items(), key=lambda x: -int(x[0])):
+        while summa + int(key) <= amount and dict_nominal[key] > 0:
+            summa += int(key)
+            dict_nominal[key] -= 1
+            
     print(dict_nominal)
                 
     with open(path + "nominal.data", 'w' , encoding='utf-8') as money_nominal:
         json.dump(dict_nominal, money_nominal)
-    return
+
+    return True
     
 def change_menu():
     print('\nВиберіть купюру:\n1. 10\n2. 20\n3. 50\n4. 100\n5. 200\n 6. 500\n7. 1000\n0. Назад')
@@ -264,62 +262,65 @@ def change_menu():
 def start():
 
     print('\nВас вітає Фуфло Банк\n')
-    user = validation()
+    while True:
+        user = validation()
 
-    if user == "admin":
-        while True:
-            print(menu_collection())
+        if user == "admin":
+            while True:
+                print(menu_collection())
+                while True:
+                    operation = input('Вибір (№) --> ')
+                    try:
+                        if int(operation) == 1:
+                            if view_collection(user):
+                                continue
+
+                        elif int(operation) == 2:
+                            if change_menu():
+                                break
+
+                        elif int(operation) == 3:
+                            print(':`( Пакєда')
+                            exit()
+
+                    except ValueError:
+                        print('Не вірна операція!')
+                        continue
+                    else:
+                        print('Не вірна операція!')
+                        continue
+        else:
+            print(menu())
             while True:
                 operation = input('Вибір (№) --> ')
                 try:
                     if int(operation) == 1:
-                        if view_collection(user):
+                        if view_balance(user):
                             continue
 
                     elif int(operation) == 2:
-                        if change_menu():
-                            break
+                        if deposit(user):
+                            continue
 
                     elif int(operation) == 3:
+                        if withdraw(user):
+                            continue
+                    
+                    elif int(operation) == 4:
+                        if transactions(user):
+                            continue
+
+                    elif int(operation) == 5:
                         print(':`( Пакєда')
                         exit()
+                    elif int(operation) == 0:
+                        break
 
-                except ValueError:
+                except FileExistsError:
                     print('Не вірна операція!')
                     continue
                 else:
                     print('Не вірна операція!')
                     continue
-    else:
-        print(menu())
-        while True:
-            operation = input('Вибір (№) --> ')
-            try:
-                if int(operation) == 1:
-                    if view_balance(user):
-                        continue
-
-                elif int(operation) == 2:
-                    if deposit(user):
-                        continue
-
-                elif int(operation) == 3:
-                    if withdraw(user):
-                        continue
-                
-                elif int(operation) == 4:
-                    if transactions(user):
-                        continue
-
-                elif int(operation) == 5:
-                    print(':`( Пакєда')
-                    exit()
-
-            except FileExistsError:
-                print('Не вірна операція!')
-                continue
-            else:
-                print('Не вірна операція!')
-                continue
 
 start()
