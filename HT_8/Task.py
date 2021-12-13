@@ -19,7 +19,8 @@
 
 2. Для кращого засвоєння - перед написанням коду із п.1 - видаліть код для старої програми-банкомату і напишіть весь 
     код наново (завдання на самоконтроль).
-    До того ж, скоріш за все, вам прийдеться і так багато чого переписати. '''
+    До того ж, скоріш за все, вам прийдеться і так багато чого переписати.
+     '''
 
 import json
 import os
@@ -75,7 +76,7 @@ def view_balance(user):
     with open(path + user + "_balance.data", 'r', encoding='utf-8') as user_balance:
         print(f'Баланс {user} --> {user_balance.read()}')
 
-        return continue_or_exit()
+        return continue_or_exit(user)
         
 def deposit(user):
     while True:
@@ -101,7 +102,7 @@ def deposit(user):
                         user_transactions.write(json.dumps(f"Депозит {deposit} , Баланс: {new_balance}", ensure_ascii=False)) 
                         user_transactions.write("\n")
 
-            return continue_or_exit()
+            return continue_or_exit(user)
 
         except ValueError:
                 print('Не допустимі символи')
@@ -136,7 +137,7 @@ def withdraw(user):
                     print('Не достатньо когтів на балансі !')
                     continue
 
-            return continue_or_exit()
+            return continue_or_exit(user)
 
         except ValueError:
             print('Не допустимі символи')
@@ -149,7 +150,7 @@ def transactions(user):
     except FileNotFoundError:
         print('>>> Історія відсутня <<<')
 
-    return continue_or_exit()
+    return continue_or_exit(user)
 
 def view_collection(user):
     try:
@@ -208,15 +209,17 @@ def change_nominals(amount):
 
     nominals = ["1000","500","200","100","50","20","10"]
     print(dict_nominal)
+
     for key in range(len(nominals)):
-        while amount >= int(dict_nominal[nominals[key]]):
-            if int(nominals[key]) <= amount and dict_nominal[nominals[key]] > 0:
-                #if chislo % int(nominals[key]) == 0:
+        if int(nominals[key]) <= amount and dict_nominal[nominals[key]] > 0:
+            while amount % int(nominals[key]) == 0 and amount !=0:
                 dict_nominal[nominals[key]] -= 1
                 amount -= int(nominals[key])
-                continue
-            else:
-                continue
+            while amount % 20 == 10 and amount !=0:
+                dict_nominal["50"] -= 1
+                amount -= 50
+    print(dict_nominal)
+                
     with open(path + "nominal.data", 'w' , encoding='utf-8') as money_nominal:
         json.dump(dict_nominal, money_nominal)
     return
