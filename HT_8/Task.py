@@ -223,7 +223,7 @@ def pisets_zadolbalo_rabotai_lol_kak_ya_golovu_lomal(amount):
     return True
     
 def change_menu():
-    print('\nВиберіть купюру:\n1. 10\n2. 20\n3. 50\n4. 100\n5. 200\n 6. 500\n7. 1000\n0. Назад')
+    print('\nВиберіть купюру:\n1. 10\n2. 20\n3. 50\n4. 100\n5. 200\n6. 500\n7. 1000\n0. Назад')
     while True:
         operation = input('Вибір (№) --> ')
         try:
