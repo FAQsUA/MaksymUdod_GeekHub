@@ -26,6 +26,11 @@ import os
  
 path = os.path.dirname(os.path.realpath(__file__)) + '/'
 
+class NoMoney(Exception):
+    pass
+class NoNominal(Exception):
+    pass
+
 def validation():
 
     with open(path + "users.data", 'r', encoding='utf-8') as users_file:
@@ -107,10 +112,14 @@ def deposit(user):
                 continue
 
 def withdraw(user):
+    
     while True:
         
         try:
+            
             withdraw = int(input('Введіть сумму зняття --> '))
+
+            pisets_zadolbalo_rabotai_lol_kak_ya_golovu_lomal(withdraw)
 
             if withdraw < 0:
                 withdraw *= -1
@@ -130,16 +139,20 @@ def withdraw(user):
                     with open(path + user + "_transactions.data", 'a', encoding='utf-8') as user_transactions:
                         user_transactions.write(json.dumps(f"Зняття {withdraw} , Баланс: {new_balance}", ensure_ascii=False))
                         user_transactions.write("\n")
-
-                    pisets_zadolbalo_rabotai_lol_kak_ya_golovu_lomal(withdraw) 
+ 
                 else:
-                    print('Не достатньо когтів на балансі !')
                     continue
 
             return continue_or_exit(user)
 
         except ValueError:
             print('Не допустимі символи')
+            continue
+        except NoMoney:
+            print("Не достатньо коштів в терміналі")
+            continue
+        except NoNominal:
+            print('Сумма має бути кратна 10!')
             continue
 
 def transactions(user):
@@ -202,18 +215,32 @@ def change_nominal(nominal):
 
 def pisets_zadolbalo_rabotai_lol_kak_ya_golovu_lomal(amount):
     dict_nominal = {}
+    res = {}
+    nominal_sum = 0
     summa = 0
     with open(path + "nominal.data", 'r' , encoding='utf-8') as money_nominal:
         dict_nominal = json.loads(money_nominal.read())
 
-    print(dict_nominal)
+    for key,value in dict_nominal.items():
+        nominal_sum += int(key) * value
 
-    for key, value in sorted(dict_nominal.items(), key=lambda x: -int(x[0])):
-        while summa + int(key) <= amount and dict_nominal[key] > 0:
-            summa += int(key)
-            dict_nominal[key] -= 1
-            
-    print(dict_nominal)
+    if amount > nominal_sum:
+        raise NoMoney
+    elif amount % 10 != 0 :
+        raise NoNominal       
+    else:
+    
+        for key, value in sorted(dict_nominal.items(), key=lambda x: -int(x[0])):
+            value = 0
+            while summa + int(key) <= amount and dict_nominal[key] > 0:
+                summa += int(key)
+                dict_nominal[key] -= 1
+                value += 1
+                res.update({key:value})
+
+    print("Видано: ")
+    for key in res:
+        print(f"{res[key]} купюр по {key}")
                 
     with open(path + "nominal.data", 'w' , encoding='utf-8') as money_nominal:
         json.dump(dict_nominal, money_nominal)
@@ -248,8 +275,6 @@ def change_menu():
 
             elif int(operation) == 0:
                 return True
-
-
         except FileExistsError:
             print('Не вірна операція!')
             continue
@@ -315,6 +340,9 @@ def start():
                         break
 
                 except FileExistsError:
+                    print('Не вірна операція!')
+                    continue
+                except ValueError:
                     print('Не вірна операція!')
                     continue
                 else:
