@@ -1,5 +1,4 @@
 from datetime import datetime
-from time import sleep
 import requests
 
 
@@ -104,9 +103,6 @@ def start():
 
         except ValueError:
             print('Error, input correct date')
-            continue
-        except:
-            print("errr")
             continue
 
     return True
