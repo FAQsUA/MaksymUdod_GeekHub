@@ -437,6 +437,8 @@ def pisets_zadolbalo_rabotai_lol_kak_ya_golovu_lomal(user, amount):
                     else:
                         flag = True
             result = [int(key) * value for key, value in give_nominal.items()]
+            if not sum(result):
+                raise NoMoney
             if sum(result) == amount:
                 res = {}
                 for key, value in give_nominal.items():

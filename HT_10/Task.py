@@ -129,7 +129,7 @@ def create_db():
 
             nominals = ["10","20","50","100","200","500","1000"]
             for item in nominals:
-                nominal = (item,10)
+                nominal = (item,5)
                 ins_in_tab_nominals(con,nominal)
         
     else:
@@ -180,7 +180,7 @@ def menu():
 
 
 def menu_admin():
-    return str('\nВведіть дію:\n 1. Переглянути наявні купюри\n 2. Змінити кількість купюр\n 3. Вихід')
+    return str('\nВведіть дію:\n 1. Переглянути наявні купюри\n 2. Змінити кількість купюр\n 3. Змінити користувача\n 4. Вихід')
 
 
 def continue_or_exit(user):
@@ -460,6 +460,8 @@ def pisets_zadolbalo_rabotai_lol_kak_ya_golovu_lomal(user, amount):
                     else:
                         flag = True
             result = [int(key) * value for key, value in give_nominal.items()]
+            if not sum(result):
+                raise NoMoney
             if sum(result) == amount:
                 res = {}
                 for key, value in give_nominal.items():
@@ -529,13 +531,13 @@ def change_menu():
 
 
 def start():
-
+    flag = True
     print('\nВас вітає Фуфло Банк\n')
     while True:
         user = validation()
 
         if user == 'admin':
-            while True:
+            while flag:
                 print(menu_admin())
                 while True:
                     operation = input('Вибір (№) --> ')
@@ -549,6 +551,10 @@ def start():
                                 break
 
                         elif int(operation) == 3:
+                            flag = False
+                            break
+
+                        elif int(operation) == 4:
                             print(':`( Пакєда')
                             exit()
 
@@ -574,7 +580,7 @@ def start():
                     elif int(operation) == 3:
                         if withdraw(user):
                             continue
-                    
+
                     elif int(operation) == 4:
                         if view_transactions(user):
                             continue
@@ -587,6 +593,7 @@ def start():
                         print(':`( Пакєда')
                         exit()
                     elif int(operation) == 0:
+                        flag = True
                         break
 
                 except FileExistsError:

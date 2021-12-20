@@ -1,10 +1,12 @@
 from datetime import datetime
+import datetime
 import requests
+import time
 
 
-take_date = datetime.now()
-today_date = take_date.strftime('%d.%m.%Y')
-year = int(take_date.year)
+take_date_and_time = datetime.datetime.now()
+today_date = take_date_and_time.strftime('%d.%m.%Y')
+year = int(take_date_and_time.year)
 
 
 def valute_des():
@@ -88,18 +90,15 @@ def start():
         try:
             date_input = input('Введіть дату (дд.мм.рррр) --> ')
 
-            if int(date_input[0:2]) <= 31:
-                if int(date_input[3:5]) <= 12:
-                    if int(date_input[6:]) <= int(year):
-                        if date_input == today_date:
-                            do_cur_request(valute_des())
-                            break
-                        else:
-                            do_request(valute_des(), date_input)
-                            break
-                    else:
-                        print('Error, input correct date')
-                        continue
+            if date_input > today_date:
+                print('Error, input correct date')
+                continue
+            elif date_input == today_date:
+                do_cur_request(valute_des())
+                break
+            else:
+                do_request(valute_des(), date_input)
+                break
 
         except ValueError:
             print('Error, input correct date')
