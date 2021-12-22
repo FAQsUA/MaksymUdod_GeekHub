@@ -176,7 +176,7 @@ def validation():
 
 def menu():
     
-    return str('\nВведіть дію:\n 1. Продивитись баланс\n 2. Поповнити баланс\n 3. Зняти з балансу \n 4. Історія\n 5. Курс валют\n 6. Вихід\n 0. Інкассація')
+    return str('\nВведіть дію:\n 1. Продивитись баланс\n 2. Поповнити баланс\n 3. Зняти з балансу \n 4. Історія\n 5. Курс валют\n 6. Конвертер валют\n 7. Вихід\n 0. Інкассація')
 
 
 def menu_admin():
@@ -586,10 +586,13 @@ def start():
                             continue
 
                     elif int(operation) == 5:
-                        if request_module.start():
+                        if request_module.rate_start():
+                            continue
+                    elif int(operation) == 6:
+                        if request_module.convert():
                             continue
 
-                    elif int(operation) == 6:
+                    elif int(operation) == 7:
                         print(':`( Пакєда')
                         exit()
                     elif int(operation) == 0:
