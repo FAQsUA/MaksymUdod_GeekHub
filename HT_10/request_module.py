@@ -3,7 +3,6 @@ import datetime
 import requests
 import time
 
-
 take_date_and_time = datetime.datetime.now()
 today_date = take_date_and_time.strftime('%d.%m.%Y')
 year = int(take_date_and_time.year)
@@ -108,8 +107,7 @@ def rate_start():
 
 
 def convert():
-
-    valuta = ['UAH','USD','EUR']
+    valuta = ['UAH', 'USD', 'EUR']
     convert_ = 0
     flag = True
     while flag:
@@ -154,15 +152,25 @@ def convert():
             if item['ccy'] == des_second:
                 convert_ = float(des_value) / float(item['sale'])
                 break
-        elif des_first == 'USD' and des_second != 'UAH':
-            if item['ccy'] == des_first:
-                convert_ = (float(des_value) * float(item['sale'])) \
-                            / float(json_cur_ex_rate[1]['sale'])
-                break
-        elif des_first == 'EUR' and des_second != 'UAH':
-            if item['ccy'] == des_first:
-                convert_ = (float(des_value) * float(item['sale'])) \
-                            / float(json_cur_ex_rate[0]['sale'])
-                break
+        elif des_first == 'USD':
+            if des_second != 'UAH':
+                if item['ccy'] == des_first:
+                    convert_ = (float(des_value) * float(item['sale'])) \
+                               / float(json_cur_ex_rate[1]['sale'])
+                    break
+            else:
+                if item['ccy'] == des_first:
+                    convert_ = float(des_value) * float(item['sale'])
+
+        elif des_first == 'EUR':
+            if des_second != 'UAH':
+                if item['ccy'] == des_first:
+                    convert_ = (float(des_value) * float(item['sale'])) \
+                               / float(json_cur_ex_rate[0]['sale'])
+                    break
+            else:
+                if item['ccy'] == des_first:
+                    convert_ = float(des_value) * float(item['sale'])
+
     print(f"За {des_value} {des_first} ви отримаєте {'{:.2f}'.format(convert_)} {des_second}")
     return True
