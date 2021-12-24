@@ -18,6 +18,7 @@ import menu_module
 
 def user_id_input():
     flag = True
+
     while flag:
         try:
             print('*'*25)
@@ -31,6 +32,9 @@ def user_id_input():
         except ValueError:
             print('Err!!')
             continue
+        except KeyboardInterrupt:
+            print('>>> Exit <<<')
+            exit()
 
     print(f' id: {users_list[user_id]["id"]}\n Name : {users_list[user_id]["name"]}\n Username: {users_list[user_id]["username"]}\n', end='')
     print('*' * 25)
@@ -40,8 +44,15 @@ def user_id_input():
 
 def start():
 
-    user_id = user_id_input()
-    menu_module.menu(user_id)
+    while True:
+        user_id = user_id_input()
+        res = menu_module.menu(user_id)
+        if res:
+            continue
+        else:
+            print('>>> Exit <<<')
+            break
+    exit()
 
 
 start()
