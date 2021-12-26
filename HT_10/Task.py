@@ -620,7 +620,7 @@ def start():
                             print(menu())
                             continue
                     elif int(operation) == 6:
-                        if request_module.convert():
+                        if request_module.convert_start():
                             print(menu())
                             continue
 
